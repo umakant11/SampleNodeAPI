@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pageTitle}}</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/user/">Home</a>
+                </li>
+                <li>
+                    <a class="{{#if activateAddUser}}active{{/if}}" href="/user/add">Add User</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Update User</h1><br>
+    <form action='/user/update/{{user._id}}' method='POST'>
+        <div class="m10">
+            <input type='hidden' name='id' value="{{user._id}}"/> <br>
+        </div>
+        <div class="m10">
+            <label> First Name : </label>
+            <input type='text' name='firstname' value="{{user.firstname}}"/> <br>
+        </div>
+        <div class="m10">
+            <label> Last Name : </label>
+            <input type='text' name='lastname' value="{{user.lastname}}"/>
+        </div>
+        <button type='submit'>Submit</button>
+    </form>
+</body>
+</html>

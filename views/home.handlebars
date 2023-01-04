@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pageTitle }}</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/user/">Home</a>
+                </li>
+                <li>
+                    <a href="/user/add">Add User</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Welcome to Homepage</h1><br>
+    <p>List of all users</p>
+    {{#if hasUsers}}
+        <table border="1px solid black">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        
+        {{#each users}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.firstname}} {{this.lastname}}</td>
+                <td>
+                    <a href="/user/detail/{{this.id}}" type="button">View</a>
+                    <a href="/user/update/{{this.id}}" type="button">Edit</A>
+                    <a href="/user/delete/{{this.id}}" type="button">Delete</a>
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    {{ else }}
+        <p>No User Found</p>
+    {{/if}}
+</body>
+</html>
