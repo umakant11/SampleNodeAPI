@@ -15,8 +15,7 @@ const signnow = require('@signnow/api-client')({
   production: false, // if false then uses eval server
 });
 
-//const access_token = config.SIGN_NOW_API_ACCESS_TOKEN;
-const access_token ='35299b2703911c705fc2e23717ed33ba9a97615b8f8d2d931544d35a7d4fae48';
+const access_token = config.SIGN_NOW_API_ACCESS_TOKEN;
 
 
 

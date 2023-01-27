@@ -13,7 +13,11 @@ const {engine} = require('express-handlebars');
 
 const mongoose = require('mongoose');
 
+console.log("In app.js");
+
 const multer = require('multer');
+
+console.log("Here 2");
 
 const app = express();
 app.use(express.json());
