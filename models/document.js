@@ -15,6 +15,9 @@ const documentSchema = new Schema({
     },
     status:{
         type:String
+    },
+    url:{
+        type:String
     }
 });
 

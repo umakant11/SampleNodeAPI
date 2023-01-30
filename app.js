@@ -37,6 +37,8 @@ const fileStorage = multer.diskStorage({
     }
 });
 
+
+
 app.engine('handlebars', engine({extname: "handlebars",defaultLayout: false,layoutsDir: "views/layouts/"}));
 app.set('view engine', 'handlebars');
 app.set('views', 'views');
