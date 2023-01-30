@@ -1,9 +1,12 @@
 const Document = require('../../models/document');
 const path = require('path');
 
-
 const fs = require('fs');
+
+require('dotenv').config();
 const config = process.env;
+
+const Joi = require('joi');
 
 const api = require('@signnow/api-client')({
     credentials: 'ENCODED_CLIENT_CREDENTIALS',
@@ -18,14 +21,25 @@ const signnow = require('@signnow/api-client')({
 const access_token = config.SIGN_NOW_API_ACCESS_TOKEN;
 
 
-
-
 exports.uploadDocument = async (req, res, next) => {
+    const schema = Joi.object({
+        email: Joi.string().email().required().messages({
+            "any.required": "Email is required",
+            "string.email": "Email is invalid"
+        }),
+    });
+
+    const validationResult = schema.validate(req.body);
+    
+    if (validationResult.error) {
+      return res.status(422).json(validationResult.error);
+    }
 
     const file = req.file;
     const filename = (file.filename);
+    const fromEmail = config.SIGN_NOW_FROM_EMAIL;
     const fieldInvite = {
-        from: 'umakant@digialpha.co',
+        from: fromEmail,
         to: [
           {
             email: req.body.email,
@@ -140,5 +154,49 @@ exports.postDocumentComplete = async(req, res, next) => {
     }
     
     return res.status(200).json();
+}
+
+exports.documentDownload = async(req, res, next) => {
+  console.log(req.params.documentId);  
+    api.document.download({
+      token: access_token,
+      id: req.params.documentId,
+      options: { 
+        withAttachments: true, // false by default
+        withHistory: true, // false by default
+      },
+    }, (err, res1) => {
+      if(err){
+        console.log(err);
+        return res.status(200).json({ success: false});
+      }else{
+        console.log(res1.toString());
+        //var buffer = Buffer.from(res1, 'base64');
+        
+        // let buff = Buffer.from(res1,'binary').toString('base64');
+
+        // let originalname = Buffer.from(buff,'base64');
+
+        //console.log(originalname.toString());
+        //let base64data = buff.toString('base64');
+        
+        
+        
+        // let filename = '125.pdf';
+        // let filepath = path.join(__dirname,'../../','public', filename);
+        // fs.writeFile(filepath, res1, 'binary', function(err){
+        //   if(err){
+        //     console.log("Error");
+        //   }else{
+        //     console.log("Success");
+        //   }
+          
+        // });
+
+        
+        return res.status(200).json({ success: true});
+      }
+    });
+    
 }
 

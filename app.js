@@ -1,5 +1,7 @@
 const path = require('path');
 const rootDir = require('./helpers/path'); 
+require('dotenv').config();
+const { v4: uuidv4 } = require('uuid');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -17,7 +19,8 @@ console.log("In app.js");
 
 const multer = require('multer');
 
-console.log("Here 2");
+const config = process.env;
+console.log(config.SIGN_NOW_API_ACCESS_TOKEN);
 
 const app = express();
 app.use(express.json());
@@ -28,7 +31,9 @@ const fileStorage = multer.diskStorage({
         cb(null, 'public');
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toISOString() + '-' + file.originalname);
+        //cb(null, new Date().toISOString() + '-' + file.originalname);
+        let name = uuidv4();
+        cb(null, name + '-' + file.originalname);
     }
 });
 
@@ -39,8 +44,6 @@ app.set('views', 'views');
 app.use(multer({storage: fileStorage}).single('file'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(rootDir,'public')));
-
-
 
 const webRoutes = require('./routes/web');
 const adminRoutes = require('./routes/admin');

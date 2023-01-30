@@ -20,6 +20,8 @@ router.post('/webhook-document-complete', signNowController.createWebhookDocumen
 
 router.post('/document-complete', signNowController.postDocumentComplete);
 
+router.get('/document-download/:documentId', signNowController.documentDownload);
+
 router.get('/webhook-list', signNowController.getWebhooks);
 
 module.exports = router;
