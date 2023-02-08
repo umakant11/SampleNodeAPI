@@ -51,11 +51,13 @@ const webRoutes = require('./routes/web');
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/users');
 const signNowRoutes = require('./routes/signnow');
+const materialRoutes = require('./routes/material');
 
 app.use('/user',webRoutes);
 app.use('/api/admin/user', adminRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/signnow', signNowRoutes);
+app.use('/api/material', materialRoutes);
 
 const errorController = require('./controllers/error');
 app.use(errorController.get404);

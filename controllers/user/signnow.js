@@ -24,6 +24,13 @@ const access_token = config.SIGN_NOW_API_ACCESS_TOKEN;
 
 
 exports.uploadDocument = async (req, res, next) => {
+
+  api.link.create({
+    token: 'your auth token',
+    document_id: 'document or template id',
+  }, (err, res) => {
+    // handle error or process response data
+  });
   
     const schema = Joi.object({
         email: Joi.string().email().required().messages({
